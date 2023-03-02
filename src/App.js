@@ -1,24 +1,28 @@
-import logo from './logo.svg';
+import { use } from 'react';
 import './App.css';
 
 function App() {
+
+  const getCharacters = () => {
+    
+      const data = use(fetch('https://rickandmortyapi.com/api/character')
+        .then(results => results.json())
+        //.then(res => console.log(res))
+        //.catch(err => console.log(err.message))
+      );
+      
+      return data;
+  };
+
+  //console.log(getCharacters());
+ 
+
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <div>
+        {getCharacters().results?.map(char => <li>{char.name}</li>)}
+      </div>
+    
   );
 }
 
